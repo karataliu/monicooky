@@ -49,3 +49,4 @@ internal/
 **/.vs
 **/.vscode
 !**/.vscode/tasks.json
+typings/
