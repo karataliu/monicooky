@@ -1,13 +1,21 @@
 import msRest = require('ms-rest');
 
-class McClientOptions {
-    endpoint = "http://doliluza1test.azurewebsites.net";
+export interface McClientOptions {
+    endpoint?:  string;
+    tenantId?:  string;
+    clientId?:  string;
+    secret?:    string;
 }
+
+var defaultOptions: McClientOptions = {
+    endpoint: "https://management.azure.com"
+};
 
 class McResource extends msRest.WebResource {
     constructor() {
         super();
         this.method = "GET";
+        this.withHeader('client', 'mcResource');
     }
 
     method: string;
@@ -16,10 +24,21 @@ class McResource extends msRest.WebResource {
 
 export class McClient extends msRest.ServiceClient {
     constructor(options?: McClientOptions) {
-        super();
-        options = options || new McClientOptions();
-        
-        this.mcBaseUrl = options.endpoint;
+        options = options || {};
+
+        var credentials = null;
+        if(options.clientId){
+            var msRestAzure = require('ms-rest-azure');
+            var credentials = new msRestAzure.ApplicationTokenCredentials(
+                options.clientId,
+                options.tenantId,
+                options.secret);
+        } else if (!options.endpoint) {
+            options.endpoint = "http://doliluza1test.azurewebsites.net";
+        }
+
+        super(credentials);
+        this.mcBaseUrl = options.endpoint || defaultOptions.endpoint;
     }
 
     mcBaseUrl: string;
@@ -36,7 +55,12 @@ export class McClient extends msRest.ServiceClient {
                     reject(err);return;
                 }
                 if(response.statusCode !== 200){
-                    reject('code');return;
+                    var msg = {
+                        code: response.statusCode,
+                        body: body
+                    };
+                    
+                    reject(JSON.stringify(msg));return;
                 }
 
                 try{

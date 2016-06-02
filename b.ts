@@ -1,9 +1,17 @@
 import lib = require('./a');
 
 function errlog(data){
-    console.log("error:" + data);
+    console.error("error:" + data);
+    process.exit(1);
 }
 
-let path = "/subscriptions/test/resourceGroups";
-let client = new lib.McClient();
-client.get(path).then(console.log).catch(errlog);
+function count(data){
+    var arr = data['value'];
+    console.log(arr.length);
+}
+
+let conf = require('./conf.json');
+let path = conf.path;
+let options: lib.McClientOptions = conf;
+let client = new lib.McClient(options);
+client.get(path).then(count).catch(errlog);
