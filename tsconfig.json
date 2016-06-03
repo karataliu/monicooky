@@ -1,6 +1,9 @@
 {
-     "exclude": [
-        "node_modules"
+    "files": [
+        "a.ts", 
+        "b.ts",
+        "c.ts",
+        "typings/index.d.ts"
     ],
     "compilerOptions": {
         "target": "es6",

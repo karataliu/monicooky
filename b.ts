@@ -1,12 +1,12 @@
 import lib = require('./a');
 
-function errlog(data){
+function errlog(data) {
     console.error("error:" + data);
     process.exit(1);
 }
 
-function count(data){
-    var arr = data['value'];
+function count(data) {
+    let arr = data['value'];
     console.log(arr.length);
 }
 
