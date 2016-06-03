@@ -18,7 +18,7 @@ function errlog(data) {
 }
 
 function count(data) {
-    var arr = data['value'];
+    let arr = data['value'];
     return arr.length;
 }
 
