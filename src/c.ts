@@ -9,7 +9,6 @@ function delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-
 import lib = require('./a');
 
 function errlog(data) {

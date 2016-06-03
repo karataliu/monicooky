@@ -50,5 +50,5 @@ internal/
 **/.vscode
 !**/.vscode/tasks.json
 typings/
-*.js
+src/*.js
 *.js.map

@@ -1,8 +1,8 @@
 {
     "files": [
-        "a.ts", 
-        "b.ts",
-        "c.ts",
+        "src/a.ts",
+        "src/b.ts",
+        "src/c.ts",
         "typings/index.d.ts"
     ],
     "compilerOptions": {
