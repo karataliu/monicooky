@@ -1,4 +1,5 @@
 import msRest = require('ms-rest');
+import {Promise} from 'es6-promise';
 
 export interface McClientOptions {
     endpoint?: string;

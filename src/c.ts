@@ -1,12 +1,14 @@
-async function runWithDelay(time: number, callback: Function): Promise<void> {
-    while (1) {
+import {Promise} from 'es6-promise';
+
+function runWithDelay(time: number, callback: Function): void {
+    (function run() {
         callback();
-        await delay(time * 1000);
-    }
+        delay(time * 1000).then(run);
+    })();
 }
 
-function delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+function delay(ms: number): Promise<void> {
+    return new Promise<void>(resolve => setTimeout(resolve, ms));
 }
 
 import lib = require('./a');
