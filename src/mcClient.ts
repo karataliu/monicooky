@@ -12,6 +12,10 @@ let defaultOptions: McClientOptions = {
     endpoint: "https://management.azure.com"
 };
 
+export interface IMcClient {
+    get(path: string): Promise<Object>;
+}
+
 class McResource extends msRest.WebResource {
     constructor() {
         super();
@@ -23,7 +27,7 @@ class McResource extends msRest.WebResource {
     url: string;
 }
 
-export class McClient extends msRest.ServiceClient {
+export class McClient extends msRest.ServiceClient implements IMcClient {
     constructor(options?: McClientOptions) {
         options = options || {};
 

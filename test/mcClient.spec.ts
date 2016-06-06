@@ -9,10 +9,9 @@ let conf = {
     "tenantId": "",
     "clientId": "",
     "secret": "",
-    "path": "/subscriptions/test/resourceGroups?api-version=2014-04-01"
 };
 
-let path = conf.path;
+let path =  "/subscriptions/test/resourceGroups?api-version=2014-04-01";
 let options: mcClient.McClientOptions = conf;
 let client = new mcClient.McClient(options);
 
