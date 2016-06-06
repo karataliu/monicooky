@@ -3,14 +3,12 @@ import run from './mcLib';
 import { McUtil } from './mcUtil';
 import { McClientOptions, IMcQueryEntry } from './common';
 
-let conf = McUtil.LoadFile(__dirname + '/conf.json');
-
+let conf: any = McUtil.LoadFile(__dirname + '/conf.json');
+let query: IMcQueryEntry[] = conf.list;
 let options: McClientOptions = conf;
 let client = new mcClient.McClient(options);
 
-run(client, [
-    { name: "azure.rgcount", path: "/subscriptions/test/resourceGroups?api-version=2014-04-01" }
-]).then(result => {
+run(client, query).then(result => {
     let list = McUtil.ConvertSenderInput(result.list);
     for (let item of list){
         console.log(item);
