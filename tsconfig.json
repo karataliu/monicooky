@@ -3,9 +3,9 @@
         "src/a.ts",
         "src/b.ts",
         "src/c.ts",
-        "src/util.ts",
-        "typings/index.d.ts",
-        "test/util.spec.ts"
+        "src/mcUtil.ts",
+        "test/mcUtil.spec.ts",
+        "typings/index.d.ts"
     ],
     "compilerOptions": {
         "target": "es5",

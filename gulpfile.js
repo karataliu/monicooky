@@ -18,10 +18,9 @@ gulp.task("tslint", () =>
         .pipe(tslint.report("verbose"))
 );
 
-
 const jasmine = require('gulp-jasmine');
 
 gulp.task('test', ['build'], () =>
-    gulp.src('test/util.spec.js')
+    gulp.src('test/mcUtil.spec.js')
         .pipe(jasmine())
 );
