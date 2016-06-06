@@ -2,7 +2,7 @@ var gulp = require("gulp");
 var ts = require("gulp-typescript");
 var tsProject = ts.createProject("tsconfig.json");
 
-gulp.task("default", ["build", "tslint"]);
+gulp.task("default", ["build", "test", "tslint"]);
 
 gulp.task("build", function () {
     return tsProject.src('typings/')
@@ -21,7 +21,7 @@ gulp.task("tslint", () =>
 
 const jasmine = require('gulp-jasmine');
 
-gulp.task('test', () =>
+gulp.task('test', ['build'], () =>
     gulp.src('test/util.spec.js')
         .pipe(jasmine())
 );
