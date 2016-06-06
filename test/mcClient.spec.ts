@@ -1,4 +1,4 @@
-import lib = require('../src/mcClient');
+import mcClient = require('../src/mcClient');
 
 function count(data) {
     let arr = data['value'];
@@ -13,10 +13,10 @@ let conf = {
 };
 
 let path = conf.path;
-let options: lib.McClientOptions = conf;
-let client = new lib.McClient(options);
+let options: mcClient.McClientOptions = conf;
+let client = new mcClient.McClient(options);
 
-describe("Lib test", function () {
+describe("Client test", function () {
     it("test 1", function (done) {
         let t1 = client.get(path).then(count);
         t1.then(function(dat){

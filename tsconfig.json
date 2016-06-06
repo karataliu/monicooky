@@ -3,8 +3,10 @@
         "src/run.ts",
         "src/mcClient.ts",
         "src/mcUtil.ts",
+        "src/mcLib.ts",
         "test/mcUtil.spec.ts",
         "test/mcClient.spec.ts",
+        "test/mcLib.spec.ts",
         "typings/index.d.ts"
     ],
     "compilerOptions": {
