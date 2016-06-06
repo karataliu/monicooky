@@ -1,6 +1,9 @@
 import { McUtil } from '../src/mcUtil';
 
 describe("Util ConvertSenderInput", function () {
+  it("test Convert 0", function () {
+    expect(McUtil.ConvertSenderInput({})).toEqual([]);
+  });
   it("test Convert 1", function () {
     expect(McUtil.ConvertSenderInput({ a: 1 })).toEqual(["- a 1"]);
   });
