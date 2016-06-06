@@ -2,26 +2,40 @@
 import mcClient = require('./mcClient');
 import {Promise} from 'es6-promise';
 
-let urls = {
-    "azure.rgcount": {
-        path: "/subscriptions/test/resourceGroups?api-version=2014-04-01"
-    },
-     "azure.rgcount1": {
-        path: "/subscriptions/test/resourceGroups?api-version=2014-04-01"
-    }
-};
+export interface IMcQueryEntry {
+    name: string;
+    path: string;
+}
+
+export interface IMcResultEntry {
+    name: string;
+    value: number | string;
+}
+
+export interface IMcResult {
+    list: IMcResultEntry[];
+}
 
 let path = "/subscriptions/test/resourceGroups?api-version=2014-04-01";
 
-function count(data) {
+function count(data): number {
     let arr = data['value'];
     return arr.length;
 }
 
-export default function(client: mcClient.IMcClient): Promise<Object> {
-    return client.get(path).then(count).then((cou) => {
-        return {
-            "a1": cou
-        };
-    });
+export default function(client: mcClient.IMcClient, queries: IMcQueryEntry[]): Promise<IMcResult> {
+    let base: Promise<IMcResult> = Promise.resolve({list: []});
+    for (let entry of queries){
+        base = base.then<IMcResult>(function(result){
+            return client.get(entry.path).then(count).then(function(cou){
+                result.list.push({
+                    name: entry.name,
+                    value: cou
+                });
+                return result;
+            });
+        });
+    }
+
+    return base;
 }

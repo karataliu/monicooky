@@ -10,10 +10,26 @@ class MockClient implements IMcClient {
 
 const client = new MockClient();
 
+const urls = [
+    {
+        name: "azure.rgcount",
+        path: "/subscriptions/test/resourceGroups?api-version=2014-04-01"
+    },
+    {
+        name: "azure.rgcount1",
+        path: "/subscriptions/test/resourceGroups?api-version=2014-04-01"
+    },
+];
+
 describe("Lib test", function () {
     it("test 1", function (done) {
-        run(client).then(function(dat){
-            expect(dat).toEqual({ a1: 2 });
+        run(client, urls).then(function(dat){
+            expect(dat.list).toEqual([
+                {  name: "azure.rgcount", value: 2, },
+                {  name: "azure.rgcount1", value: 2, },
+            ]);
+        }).catch(function(err){
+            fail(err);
         }).then(done);
     });
 });
