@@ -1,11 +1,10 @@
 {
     "files": [
-        "src/a.ts",
-        "src/b.ts",
-        "src/c.ts",
         "src/run.ts",
+        "src/mcClient.ts",
         "src/mcUtil.ts",
         "test/mcUtil.spec.ts",
+        "test/mcClient.spec.ts",
         "typings/index.d.ts"
     ],
     "compilerOptions": {

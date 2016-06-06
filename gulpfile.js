@@ -21,6 +21,6 @@ gulp.task("tslint", () =>
 const jasmine = require('gulp-jasmine');
 
 gulp.task('test', ['build'], () =>
-    gulp.src('test/mcUtil.spec.js')
+    gulp.src('test/*.spec.js')
         .pipe(jasmine())
 );
