@@ -34,7 +34,7 @@ export class McClient extends msRest.ServiceClient implements IMcClient {
         let credentials = null;
         if (options.clientId) {
             let msRestAzure = require('ms-rest-azure');
-            let credentials = new msRestAzure.ApplicationTokenCredentials(
+            credentials = new msRestAzure.ApplicationTokenCredentials(
                 options.clientId,
                 options.tenantId,
                 options.secret);
