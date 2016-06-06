@@ -9,7 +9,7 @@ gulp.task("build", function () {
     return tsProject.src('typings/')
         .pipe(sourcemaps.init())
         .pipe(ts(tsProject)).js
-        .pipe(sourcemaps.write('./'))
+        .pipe(sourcemaps.write('./', {sourceRoot:'/src'}))
         .pipe(gulp.dest("./"));
 });
 
@@ -27,3 +27,12 @@ gulp.task('test', ['build'], () =>
     gulp.src('test/*.spec.js')
         .pipe(jasmine())
 );
+
+const del = require('del');
+
+gulp.task('clean', ()=>{
+    del(['src/*.js', 'test/*.js', 'src/*.map', 'test/*.map']).then(paths => {
+        console.log('Deleted files and folders:\n', paths.join('\n'));
+    });
+});
+
