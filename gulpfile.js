@@ -7,9 +7,9 @@ gulp.task("default", ["build", "test", "tslint"]);
 
 gulp.task("build", function () {
     return tsProject.src('typings/')
-        .pipe(sourcemaps.init())
+        //.pipe(sourcemaps.init())
         .pipe(ts(tsProject)).js
-        .pipe(sourcemaps.write('./', {sourceRoot:'/src'}))
+        //.pipe(sourcemaps.write('./', {sourceRoot:'/src'}))
         .pipe(gulp.dest("./"));
 });
 

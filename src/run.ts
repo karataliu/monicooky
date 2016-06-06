@@ -1,8 +1,11 @@
 import mcClient = require('./mcClient');
 import run from './mcLib';
+import { IMcQueryEntry } from './mcLib';
 import { McUtil } from './mcUtil';
 
-let options: mcClient.McClientOptions = McUtil.LoadFile<mcClient.McClientOptions>(__dirname + '/conf.json');
+let conf = McUtil.LoadFile(__dirname + '/conf.json');
+
+let options: mcClient.McClientOptions = conf;
 let client = new mcClient.McClient(options);
 
 run(client, [

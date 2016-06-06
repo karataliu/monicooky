@@ -18,8 +18,8 @@ export class McUtil {
         return result;
     }
 
-    static LoadFile<T>(path: string): T {
-        let conf: T;
+    static LoadFile(path: string) {
+        let conf = {};
         try {
             fs.statSync(path);
             conf = require(path);
