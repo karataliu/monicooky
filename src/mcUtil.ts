@@ -5,7 +5,7 @@ export class McUtil {
         for (let key in obj) {
             if (obj.hasOwnProperty(key)) {
                 let value = obj[key];
-                if (typeof value === 'string'){
+                if (typeof value === 'string') {
                     value = `"${value}"`;
                 }
 
