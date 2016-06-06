@@ -1,9 +1,18 @@
 export class McUtil {
     // Convert from json object to zabbix sender input file. host default to '-'
-    static ConvertSenderInput(dat: any): string {
-        return "- db.error \"Linux DB3 down\"";
+    static ConvertSenderInput(obj: Object): string[] {
+        let result = [];
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                let value = obj[key];
+                if (typeof value === 'string'){
+                    value = `"${value}"`;
+                }
+
+                result.push(`- ${key} ${value}`);
+            }
+        }
+
+        return result;
     }
 }
-
-let a = { "a" : 5};
-let b = McUtil.ConvertSenderInput(a);
