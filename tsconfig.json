@@ -1,5 +1,6 @@
 {
     "files": [
+        "src/common.ts",
         "src/run.ts",
         "src/mcClient.ts",
         "src/mcUtil.ts",

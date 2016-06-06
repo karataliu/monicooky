@@ -1,5 +1,5 @@
 import run from '../src/mcLib';
-import { IMcClient } from '../src/mcClient';
+import { IMcClient } from '../src/common';
 import { Promise } from 'es6-promise';
 
 class MockClient implements IMcClient {

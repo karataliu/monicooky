@@ -1,5 +1,4 @@
-import { IMcResultEntry } from './mcLib';
-import { McClientOptions } from './mcClient';
+import { McClientOptions, IMcResultEntry } from './common';
 import fs = require('fs');
 
 export class McUtil {

@@ -1,20 +1,10 @@
 import msRest = require('ms-rest');
+import { McClientOptions, IMcClient } from './common';
 import {Promise} from 'es6-promise';
-
-export interface McClientOptions {
-    endpoint?: string;
-    tenantId?: string;
-    clientId?: string;
-    secret?: string;
-}
 
 let defaultOptions: McClientOptions = {
     endpoint: "https://management.azure.com"
 };
-
-export interface IMcClient {
-    get(path: string): Promise<Object>;
-}
 
 class McResource extends msRest.WebResource {
     constructor() {

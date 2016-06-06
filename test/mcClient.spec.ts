@@ -1,4 +1,5 @@
 import mcClient = require('../src/mcClient');
+import { McClientOptions } from '../src/common';
 
 function count(data) {
     let arr = data['value'];
@@ -12,7 +13,7 @@ let conf = {
 };
 
 let path =  "/subscriptions/test/resourceGroups?api-version=2014-04-01";
-let options: mcClient.McClientOptions = conf;
+let options: McClientOptions = conf;
 let client = new mcClient.McClient(options);
 
 describe("Client test", function () {
