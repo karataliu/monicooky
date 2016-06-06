@@ -17,3 +17,11 @@ gulp.task("tslint", () =>
         .pipe(tslint())
         .pipe(tslint.report("verbose"))
 );
+
+
+const jasmine = require('gulp-jasmine');
+
+gulp.task('test', () =>
+    gulp.src('test/util.spec.js')
+        .pipe(jasmine())
+);

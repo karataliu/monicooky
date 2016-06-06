@@ -12,8 +12,10 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-jasmine": "^2.3.0",
     "gulp-tslint": "^5.0.0",
     "gulp-typescript": "^2.13.6",
+    "jasmine": "^2.4.1",
     "tslint": "^3.10.2",
     "typescript": "^1.8.10"
   }
