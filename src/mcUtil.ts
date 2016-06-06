@@ -1,4 +1,6 @@
 import { IMcResultEntry } from './mcLib';
+import { McClientOptions } from './mcClient';
+import fs = require('fs');
 
 export class McUtil {
     // Convert from json object to zabbix sender input file. host default to '-'
@@ -14,5 +16,18 @@ export class McUtil {
         }
 
         return result;
+    }
+
+    static LoadFile<T>(path: string): T {
+        let conf: T;
+        try {
+            fs.statSync(path);
+            conf = require(path);
+        } catch (err) {
+            console.error(err);
+            return conf;
+        }
+
+        return conf;
     }
 }

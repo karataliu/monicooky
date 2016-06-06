@@ -16,8 +16,6 @@ export interface IMcResult {
     list: IMcResultEntry[];
 }
 
-let path = "/subscriptions/test/resourceGroups?api-version=2014-04-01";
-
 function count(data): number {
     let arr = data['value'];
     return arr.length;
