@@ -1,10 +1,11 @@
-hi, this test.
+To get start:
 
 ```
+npm install -g gulp-cli typings
+npm install
 typings install
+gulp
 ```
-
-
 
 ## Flow
 

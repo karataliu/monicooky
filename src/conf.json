@@ -6,11 +6,13 @@
 	"list":[
 		{
 			"name": "azure.rgcount",
-			"path": "/subscriptions/test/resourceGroups?api-version=2014-04-01"
+			"path": "/subscriptions/test/resourceGroups?api-version=2014-04-01",
+			"query": "/$count"
 		},
 		{
 			"name": "azure.stocount",
-			"path": "/subscriptions/test/providers/Microsoft.Storage/storageAccounts?api-version=2015-05-01-preview"
+			"path": "/subscriptions/test/providers/Microsoft.Storage/storageAccounts?api-version=2015-05-01-preview",
+			"query": "/$count"
 		}
 	]
 }
