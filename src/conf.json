@@ -1,0 +1,16 @@
+{
+    "tenantId"  : "",
+    "clientId"  : "",
+    "secret"    : "",
+    "logFile"   : "b.log",
+	"list":[
+		{
+			"name": "azure.rgcount",
+			"path": "/subscriptions/test/resourceGroups?api-version=2014-04-01"
+		},
+		{
+			"name": "azure.stocount",
+			"path": "/subscriptions/test/providers/Microsoft.Storage/storageAccounts?api-version=2015-05-01-preview"
+		}
+	]
+}

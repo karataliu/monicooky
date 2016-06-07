@@ -20,7 +20,7 @@ describe("Client test", function () {
     it("test 1", function (done) {
         let t1 = client.get(path).then(count);
         t1.then(function(dat){
-            expect(dat).toBe(1);
+            expect(dat).toBe(2);
         }).then(done);
     });
 });
