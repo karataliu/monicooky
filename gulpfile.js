@@ -31,7 +31,7 @@ gulp.task('test', ['build'], () =>
 const del = require('del');
 
 gulp.task('clean', ()=>{
-    del(['src/*.js', 'test/*.js', 'src/*.map', 'test/*.map']).then(paths => {
+    del(['src/*.js', 'test/*.js', 'src/*.map', 'test/*.map', '*.log']).then(paths => {
         console.log('Deleted files and folders:\n', paths.join('\n'));
     });
 });

@@ -54,3 +54,4 @@ src/*.js
 test/*.js
 *.js.map
 *~
+*.log
