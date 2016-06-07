@@ -1,10 +1,11 @@
 import { Promise } from 'es6-promise';
 
 export interface McClientOptions {
-    endpoint?: string;
-    tenantId?: string;
-    clientId?: string;
-    secret?: string;
+    endpoint?:  string;
+    tenantId?:  string;
+    clientId?:  string;
+    secret?:    string;
+    logFile?:   string;
 }
 
 export interface IMcClient {

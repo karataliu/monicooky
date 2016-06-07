@@ -4,7 +4,7 @@ import { McUtil } from './mcUtil';
 import { McClientOptions, IMcQueryEntry } from './common';
 
 let conf: any = McUtil.LoadFile(__dirname + '/conf.json');
-let query: IMcQueryEntry[] = conf.list;
+let query: IMcQueryEntry[] = conf.list || [];
 let options: McClientOptions = conf;
 let client = new mcClient.McClient(options);
 

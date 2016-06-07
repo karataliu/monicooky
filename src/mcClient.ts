@@ -1,5 +1,6 @@
 import msRest = require('ms-rest');
-import { McClientOptions, IMcClient } from './common';
+import { McClientOptions, IMcClient, IMcLogger } from './common';
+import { McLogger } from './mcLogger';
 import {Promise} from 'es6-promise';
 
 let defaultOptions: McClientOptions = {
@@ -16,6 +17,8 @@ class McResource extends msRest.WebResource {
     method: string;
     url: string;
 }
+
+let logger: IMcLogger;
 
 export class McClient extends msRest.ServiceClient implements IMcClient {
     constructor(options?: McClientOptions) {
@@ -34,6 +37,9 @@ export class McClient extends msRest.ServiceClient implements IMcClient {
 
         super(credentials);
         this.mcBaseUrl = options.endpoint || defaultOptions.endpoint;
+         if (options.logFile) {
+            logger = new McLogger(options.logFile);
+        }
     }
 
     mcBaseUrl: string;
@@ -43,12 +49,15 @@ export class McClient extends msRest.ServiceClient implements IMcClient {
         let wr = new McResource();
         wr.url = this.mcBaseUrl + path;
         let pip = this.pipeline;
+        doLog(`Request Url: ${wr.url}`);
 
         return new Promise<Object>(function (resolve, reject) {
             pip(wr, function (err, response, body) {
                 if (err) {
                     reject(err); return;
                 }
+
+                doLog("ResponseBody: " + body);
                 if (response.statusCode !== 200) {
                     let msg = {
                         code: response.statusCode,
@@ -67,4 +76,11 @@ export class McClient extends msRest.ServiceClient implements IMcClient {
             });
         });
     }
+
 }
+
+function doLog(message: string): void {
+        if (logger) {
+            logger.log(message);
+        }
+    }
