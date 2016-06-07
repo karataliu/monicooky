@@ -5,9 +5,11 @@
         "src/mcClient.ts",
         "src/mcUtil.ts",
         "src/mcLib.ts",
+        "src/mcLogger.ts",
         "test/mcUtil.spec.ts",
         "test/mcClient.spec.ts",
         "test/mcLib.spec.ts",
+        "test/mcLogger.spec.ts",
         "typings/index.d.ts"
     ],
     "compilerOptions": {

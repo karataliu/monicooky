@@ -24,3 +24,7 @@ export interface IMcResultEntry {
 export interface IMcResult {
     list: IMcResultEntry[];
 }
+
+export interface IMcLogger {
+    log(message: string): void;
+}
