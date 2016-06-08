@@ -1,16 +1,22 @@
 import run from '../src/mcLib';
 import { IMcClient, ISubscription } from '../src/common';
+import { McLib } from '../src/mcLib';
 import { Promise } from 'es6-promise';
 
 class MockClient implements IMcClient {
     get(path: string): Promise<Object> {
+        if (path === "/subscriptions") {
+            return Promise.resolve({
+                value: [
+                    { subscriptionId: "6d867431-f573-4e78-b658-10896020cff7", displayName: "d2" }
+                ]
+            });
+        }
+
         return Promise.resolve({ value: [{}, {}] });
     }
     getWithQuery(path: string, query: string): Promise<string | number> {
         return Promise.resolve(2);
-    }
-    listSubscriptions(): Promise<ISubscription[]> {
-        return Promise.resolve([{id: "6d867431-f573-4e78-b658-10896020cff7", name: "d2"}]);
     }
 }
 
@@ -37,5 +43,22 @@ describe("Lib test", function () {
         }).catch(function (err) {
             fail(err);
         }).then(done);
+    });
+});
+
+describe("Lib listSubs", function () {
+    let mcLib = new McLib(client);
+
+    it("test 1", function (done) {
+        let t1 = mcLib.listSubscriptions().then(function (list) {
+            expect(list.length).toBe(1);
+            expect(list).toEqual([
+                { id: "6d867431-f573-4e78-b658-10896020cff7", name: "d2" }
+            ]);
+            done();
+        }).catch(function (err) {
+            fail(err);
+            done();
+        });
     });
 });

@@ -80,22 +80,6 @@ export class McClient extends msRest.ServiceClient implements IMcClient {
     getWithQuery(path: string, query: string): Promise<string | number> {
         return null;
     }
-
-    listSubscriptions(): Promise<ISubscription[]> {
-        return this.get("/subscriptions").then(function(data: any){
-            let subs: ISubscription[] = [];
-
-            let list: Array<any> = data.value;
-            for (let item of list){
-                subs.push({
-                    id      : item.subscriptionId,
-                    name    : item.displayName
-                });
-            }
-
-            return subs;
-        });
-    }
 }
 
 function doLog(message: string): void {

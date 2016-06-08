@@ -1,15 +1,15 @@
-import { IMcClient, IDiscoveryResult, ISubscription, IMcResultEntry } from './common';
-import {Promise} from 'es6-promise';
+import { Promise } from 'es6-promise';
+import { IMcClient, IDiscoveryResult, ISubscription, IMcResultEntry, IMcLib } from './common';
 
 export class McAdapter {
-    private client: IMcClient;
+    private mclib: IMcLib;
 
-    constructor(client: IMcClient) {
-        this.client = client;
+    constructor(mclib: IMcLib) {
+        this.mclib = mclib;
     }
 
     GetSubscriptionsDiscovery(): Promise<IDiscoveryResult> {
-        return this.client.listSubscriptions().then(McAdapter.subscriptionsToDiscoveryResult);
+        return this.mclib.listSubscriptions().then(McAdapter.subscriptionsToDiscoveryResult);
     }
 
     static entryToString(entry: IMcResultEntry): string {
