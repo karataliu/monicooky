@@ -1,27 +1,10 @@
 // use client to gain data, then convert to plain object.
 import { IMcClient, IMcQueryEntry, IMcResult, ISubscription, IMcResultEntry } from './common';
-import {Promise} from 'es6-promise';
+import { Promise } from 'es6-promise';
 
 function count(data): number {
     let arr = data['value'];
     return arr.length;
-}
-
-export default function (client: IMcClient, queries: IMcQueryEntry[]): Promise<IMcResult> {
-    let base: Promise<IMcResult> = Promise.resolve({ list: [] });
-    for (let entry of queries) {
-        base = base.then<IMcResult>(function (result) {
-            return client.get(entry.path).then(count).then(function (cou) {
-                result.list.push({
-                    name: entry.name,
-                    value: cou
-                });
-                return result;
-            });
-        });
-    }
-
-    return base;
 }
 
 export class McLib {
@@ -59,12 +42,27 @@ export class McLib {
         });
     }
 
-    executeQuery(entry: IMcQueryEntry): Promise<IMcResultEntry> {
-        return this.client.get(entry.path).then(count).then(cou => {
+    static executeQuery(client: IMcClient, entry: IMcQueryEntry): Promise<IMcResultEntry> {
+        return client.get(entry.path).then(count).then(cou => {
             return {
                 name: entry.name,
                 value: cou
             };
         });
+    }
+
+    executeQueries(queries: IMcQueryEntry[]): Promise<IMcResult> {
+        let base: Promise<IMcResult> = Promise.resolve({ list: [] });
+        let cli = this.client;
+        for (let entry of queries) {
+            base = base.then<IMcResult>(function (result) {
+                return McLib.executeQuery(cli, entry).then(function(resultEntry){
+                    result.list.push(resultEntry);
+                    return result;
+                });
+            });
+        }
+
+        return base;
     }
 }

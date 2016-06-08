@@ -1,4 +1,3 @@
-import run from '../src/mcLib';
 import { IMcClient, ISubscription } from '../src/common';
 import { McLib } from '../src/mcLib';
 import { Promise } from 'es6-promise';
@@ -31,8 +30,9 @@ const urls = [
 ];
 
 describe("Lib test", function () {
+    let mcLib = new McLib(client);
     it("test run", function (done) {
-        run(client, urls).then(function (dat) {
+        mcLib.executeQueries(urls).then(function (dat) {
             expect(dat.list).toEqual([
                 { name: "azure.rgcount", value: 2, },
                 { name: "azure.rgcount1", value: 2, },
@@ -59,8 +59,8 @@ describe("Lib tests", function () {
         });
     });
 
-    fit("test executeQuery", function (done) {
-        mcLib.executeQuery(urls[0]).then(function (result) {
+    it("test executeQuery", function (done) {
+        McLib.executeQuery(client, urls[0]).then(function (result) {
             expect(result).toEqual({ name: "azure.rgcount", value: 2, });
             done();
         });
