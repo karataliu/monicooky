@@ -1,0 +1,14 @@
+{
+    "list": [
+        {
+            "name": "azure.subscriptions[{subscriptionId}].resourceGroupCount",
+            "path": "/subscriptions/{subscriptionId}/resourceGroups?api-version=2014-04-01",
+            "query": "/$count"
+        },
+        {
+            "name": "azure.subscriptions[{subscriptionId}].storageAccountCount",
+            "path": "/subscriptions/{subscriptionId}/providers/Microsoft.Storage/storageAccounts?api-version=2015-05-01-preview",
+            "query": "/$count"
+        }
+    ]
+}
