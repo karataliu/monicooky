@@ -14,10 +14,10 @@ class MockClient implements IMcClient {
     }
 }
 
-describe("Adapter test", function () {
+describe("Adapter test GetSubscriptionsDiscovery", function () {
     let adapter = new McAdapter(new MockClient);
 
-    it("test run", function (done) {
+    it("test1", function (done) {
         adapter
             .GetSubscriptionsDiscovery()
             .then(function (result) {
@@ -30,4 +30,20 @@ describe("Adapter test", function () {
             })
             .then(done);
     });
+});
+
+
+describe("Adapter testEntry To String", function () {
+  it("test Convert 1", function () {
+    expect(McAdapter.entryToString(
+      { name: "a", value: 1 }
+    )).toEqual("- a 1");
+  });
+  it("test Convert 2", function () {
+    expect(McAdapter.entryToString(
+      { name: "b", value: "s1" }
+    )).toEqual(
+      "- b \"s1\""
+    );
+  });
 });
