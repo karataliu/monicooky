@@ -8,8 +8,15 @@ export interface McClientOptions {
     logFile?:   string;
 }
 
+export interface ISubscription {
+    id:     string;
+    name:   string;
+}
+
 export interface IMcClient {
     get(path: string): Promise<Object>;
+    getWithQuery(path: string, query: string): Promise<string|number>;
+    listSubscriptions(): Promise<ISubscription[]>;
 }
 
 export interface IMcQueryEntry {
