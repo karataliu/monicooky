@@ -1,5 +1,5 @@
 // use client to gain data, then convert to plain object.
-import { IMcClient, IMcQueryEntry, IMcResult, ISubscription } from './common';
+import { IMcClient, IMcQueryEntry, IMcResult, ISubscription, IMcResultEntry } from './common';
 import {Promise} from 'es6-promise';
 
 function count(data): number {
@@ -56,6 +56,15 @@ export class McLib {
 
                 resolve(subs);
             });
+        });
+    }
+
+    executeQuery(entry: IMcQueryEntry): Promise<IMcResultEntry> {
+        return this.client.get(entry.path).then(count).then(cou => {
+            return {
+                name: entry.name,
+                value: cou
+            };
         });
     }
 }

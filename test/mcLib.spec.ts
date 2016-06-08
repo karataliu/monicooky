@@ -15,9 +15,6 @@ class MockClient implements IMcClient {
 
         return Promise.resolve({ value: [{}, {}] });
     }
-    getWithQuery(path: string, query: string): Promise<string | number> {
-        return Promise.resolve(2);
-    }
 }
 
 const client = new MockClient();
@@ -46,11 +43,11 @@ describe("Lib test", function () {
     });
 });
 
-describe("Lib listSubs", function () {
+describe("Lib tests", function () {
     let mcLib = new McLib(client);
 
-    it("test 1", function (done) {
-        let t1 = mcLib.listSubscriptions().then(function (list) {
+    it("test listSubs", function (done) {
+        mcLib.listSubscriptions().then(function (list) {
             expect(list.length).toBe(1);
             expect(list).toEqual([
                 { id: "6d867431-f573-4e78-b658-10896020cff7", name: "d2" }
@@ -58,6 +55,13 @@ describe("Lib listSubs", function () {
             done();
         }).catch(function (err) {
             fail(err);
+            done();
+        });
+    });
+
+    fit("test executeQuery", function (done) {
+        mcLib.executeQuery(urls[0]).then(function (result) {
+            expect(result).toEqual({ name: "azure.rgcount", value: 2, });
             done();
         });
     });

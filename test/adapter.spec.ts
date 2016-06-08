@@ -1,21 +1,18 @@
 import { Promise } from 'es6-promise';
-import { IMcClient, ISubscription } from '../src/common';
+import { IMcLib, ISubscription, IMcQueryEntry, IMcResultEntry } from '../src/common';
 import { McAdapter } from '../src/adapter';
 
-class MockClient implements IMcClient {
-    get(path: string): Promise<Object> {
-        return Promise.resolve({ value: [{}, {}] });
-    }
-    getWithQuery(path: string, query: string): Promise<string | number> {
-        return Promise.resolve(2);
-    }
+class MockLib implements IMcLib {
     listSubscriptions(): Promise<ISubscription[]> {
-        return Promise.resolve([{ id: "6d867431-f573-4e78-b658-10896020cff7", name: "d2" }]);
+        return Promise.resolve([{ id: "6d867431-f573-4e78-b658-10896020cff8", name: "d3" }]);
+    }
+    executeQuery(entry: IMcQueryEntry): Promise<IMcResultEntry> {
+        return Promise.resolve(null);
     }
 }
 
 describe("Adapter test GetSubscriptionsDiscovery", function () {
-    let adapter = new McAdapter(new MockClient);
+    let adapter = new McAdapter(new MockLib);
 
     it("test1", function (done) {
         adapter
@@ -24,8 +21,8 @@ describe("Adapter test GetSubscriptionsDiscovery", function () {
                 let list = result.data;
                 expect(list.length).toBe(1);
                 expect(list[0]).toEqual({
-                    "{#SUBID}": "6d867431-f573-4e78-b658-10896020cff7",
-                    "{#SUBNAME}": "d2"
+                    "{#SUBID}": "6d867431-f573-4e78-b658-10896020cff8",
+                    "{#SUBNAME}": "d3"
                 });
             })
             .then(done);

@@ -76,10 +76,6 @@ export class McClient extends msRest.ServiceClient implements IMcClient {
             });
         });
     }
-
-    getWithQuery(path: string, query: string): Promise<string | number> {
-        return null;
-    }
 }
 
 function doLog(message: string): void {

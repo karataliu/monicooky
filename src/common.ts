@@ -2,6 +2,7 @@ import { Promise } from 'es6-promise';
 
 export interface IMcLib {
     listSubscriptions(): Promise<ISubscription[]>;
+    executeQuery(entry: IMcQueryEntry): Promise<IMcResultEntry>;
 }
 
 export interface McClientOptions {
@@ -23,12 +24,12 @@ export interface IDiscoveryResult {
 
 export interface IMcClient {
     get(path: string): Promise<Object>;
-    getWithQuery(path: string, query: string): Promise<string|number>;
 }
 
 export interface IMcQueryEntry {
     name: string;
     path: string;
+    query?: string;
 }
 
 export interface IMcResultEntry {
