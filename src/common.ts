@@ -13,6 +13,10 @@ export interface ISubscription {
     name:   string;
 }
 
+export interface IDiscoveryResult {
+    data: Array<any>;
+}
+
 export interface IMcClient {
     get(path: string): Promise<Object>;
     getWithQuery(path: string, query: string): Promise<string|number>;

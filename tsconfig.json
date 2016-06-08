@@ -6,10 +6,12 @@
         "src/mcUtil.ts",
         "src/mcLib.ts",
         "src/mcLogger.ts",
+        "src/adapter.ts",
         "test/mcUtil.spec.ts",
         "test/mcClient.spec.ts",
         "test/mcLib.spec.ts",
         "test/mcLogger.spec.ts",
+        "test/adapter.spec.ts",
         "typings/index.d.ts"
     ],
     "compilerOptions": {

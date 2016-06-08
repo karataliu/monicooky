@@ -24,7 +24,7 @@ describe("Client test", function () {
         }).then(done);
     });
 
-    fit("test listSubs", function (done) {
+    it("test listSubs", function (done) {
         let t1 = client.listSubscriptions().then(function(list) {
             expect(list.length).toBe(1);
             expect(list).toEqual([
