@@ -21,6 +21,11 @@ export class McAdapter {
         return `- ${entry.name} ${value}`;
     }
 
+    // Convert from json object to zabbix sender input file. host default to '-'
+    static convertSenderInput(list: IMcResultEntry[]): string[] {
+        return list.map(McAdapter.entryToString);
+    }
+
     private static subscriptionsToDiscoveryResult(subscriptions: ISubscription[]): IDiscoveryResult {
         let list = [];
         for (let subscription of subscriptions) {
