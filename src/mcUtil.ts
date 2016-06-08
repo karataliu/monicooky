@@ -17,13 +17,17 @@ export class McUtil {
 
     static ExpandMacro(input: IMcQueryEntry[], macro: string, values: string[]): IMcQueryEntry[] {
         const output: IMcQueryEntry[] = [];
+        const needExpand: IMcQueryEntry[] = [];
         for (let item of input) {
             if (item.name.indexOf(macro) === -1) {
                 output.push(item);
-                continue;
+            } else {
+                needExpand.push(item);
             }
+        }
 
-            for (let value of values) {
+        for (let value of values) {
+            for (let item of needExpand) {
                 let newItem: IMcQueryEntry = {
                     name: item.name.replace(macro, value),
                     path: item.path.replace(macro, value),
