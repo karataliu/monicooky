@@ -15,7 +15,7 @@ export class McLib implements IMcLib {
     }
 
     listSubscriptions(): Promise<ISubscription[]> {
-        return this.client.get("/subscriptions").then(function (data: any) {
+        return this.client.get("/subscriptions?api-version=2014-04-01").then(function (data: any) {
             return new Promise<ISubscription[]>(function (resolve, reject) {
                 let subs: ISubscription[] = [];
 

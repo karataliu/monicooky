@@ -4,7 +4,7 @@ import { Promise } from 'es6-promise';
 
 class MockClient implements IMcClient {
     get(path: string): Promise<Object> {
-        if (path === "/subscriptions") {
+        if (path.indexOf("/subscriptions?") === 0) {
             return Promise.resolve({
                 value: [
                     { subscriptionId: "6d867431-f573-4e78-b658-10896020cff7", displayName: "d2" }
