@@ -2,7 +2,7 @@ import { Promise } from 'es6-promise';
 
 export interface IMcLib {
     listSubscriptions(): Promise<ISubscription[]>;
-    executeQuery(entry: IMcQueryEntry): Promise<IMcResultEntry>;
+    executeQueries(queries: IMcQueryEntry[]): Promise<IMcResult>;
 }
 
 export interface McClientOptions {

@@ -1,32 +1,36 @@
 import { Promise } from 'es6-promise';
-import { IMcLib, ISubscription, IMcQueryEntry, IMcResultEntry } from '../src/common';
+import { IMcLib, ISubscription, IMcQueryEntry, IMcResultEntry, IMcResult } from '../src/common';
 import { McAdapter } from '../src/adapter';
 
 class MockLib implements IMcLib {
-    listSubscriptions(): Promise<ISubscription[]> {
-        return Promise.resolve([{ id: "6d867431-f573-4e78-b658-10896020cff8", name: "d3" }]);
-    }
-    executeQuery(entry: IMcQueryEntry): Promise<IMcResultEntry> {
-        return Promise.resolve(null);
-    }
+  listSubscriptions(): Promise<ISubscription[]> {
+    return Promise.resolve([{ id: "6d867431-f573-4e78-b658-10896020cff8", name: "d3" }]);
+  }
+  executeQueries(queries: IMcQueryEntry[]): Promise<IMcResult> {
+    return Promise.resolve<IMcResult>({
+      list: [
+        { name: "a1", value: 2 }
+      ]
+    });
+  }
 }
 
 describe("Adapter test GetSubscriptionsDiscovery", function () {
-    let adapter = new McAdapter(new MockLib);
+  let adapter = new McAdapter(new MockLib);
 
-    it("test1", function (done) {
-        adapter
-            .GetSubscriptionsDiscovery()
-            .then(function (result) {
-                let list = result.data;
-                expect(list.length).toBe(1);
-                expect(list[0]).toEqual({
-                    "{#SUBID}": "6d867431-f573-4e78-b658-10896020cff8",
-                    "{#SUBNAME}": "d3"
-                });
-            })
-            .then(done);
-    });
+  it("test1", function (done) {
+    adapter
+      .GetSubscriptionsDiscovery()
+      .then(function (result) {
+        let list = result.data;
+        expect(list.length).toBe(1);
+        expect(list[0]).toEqual({
+          "{#SUBID}": "6d867431-f573-4e78-b658-10896020cff8",
+          "{#SUBNAME}": "d3"
+        });
+      })
+      .then(done);
+  });
 });
 
 describe("Adapter testEntry To String", function () {
@@ -40,7 +44,7 @@ describe("Adapter testEntry To String", function () {
       { name: "b", value: "s1" }
     )).toEqual(
       "- b \"s1\""
-    );
+      );
   });
 });
 
@@ -72,5 +76,22 @@ describe("Adapter ConvertSenderInput", function () {
       "- db.status 0",
       "- db.error \"Linux DB3 down\"",
     ]);
+  });
+});
+
+
+describe("Adapter testEntry To String", function () {
+  const adapter = new McAdapter(new MockLib);
+  it("test Convert 1", function (done) {
+    adapter
+      .GetQueryOutput([])
+      .then(function (list) {
+        expect(list).toEqual(["- a1 2"]);
+      })
+      .catch(err => {
+        fail(err);
+        done();
+      })
+      .then(done);
   });
 });

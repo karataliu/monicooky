@@ -8,10 +8,10 @@ let conf: any = McUtil.LoadFile(__dirname + '/conf.json');
 let queries: IMcQueryEntry[] = conf.list || [];
 let options: McClientOptions = conf;
 let client = new mcClient.McClient(options);
-
 const mcLib = new McLib(client);
-mcLib.executeQueries(queries).then(result => {
-    let list = McAdapter.convertSenderInput(result.list);
+const mcAdapter = new McAdapter(mcLib);
+
+mcAdapter.GetQueryOutput(queries).then(list => {
     for (let item of list) {
         console.log(item);
     }

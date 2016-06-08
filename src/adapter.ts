@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { IMcClient, IDiscoveryResult, ISubscription, IMcResultEntry, IMcLib } from './common';
+import { IMcClient, IDiscoveryResult, ISubscription, IMcResultEntry, IMcLib, IMcQueryEntry } from './common';
 
 export class McAdapter {
     private mclib: IMcLib;
@@ -10,6 +10,12 @@ export class McAdapter {
 
     GetSubscriptionsDiscovery(): Promise<IDiscoveryResult> {
         return this.mclib.listSubscriptions().then(McAdapter.subscriptionsToDiscoveryResult);
+    }
+
+    GetQueryOutput(input: IMcQueryEntry[]): Promise<string[]> {
+        return this.mclib.executeQueries(input).then(function (result) {
+            return McAdapter.convertSenderInput(result.list);
+        });
     }
 
     static entryToString(entry: IMcResultEntry): string {
