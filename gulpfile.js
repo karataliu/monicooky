@@ -15,23 +15,23 @@ gulp.task("build", function () {
 
 var tslint = require("gulp-tslint");
 
-gulp.task("tslint", () =>
+gulp.task("tslint", function() {
     tsProject.src()
         .pipe(tslint())
         .pipe(tslint.report("verbose"))
-);
+});
 
 const jasmine = require('gulp-jasmine');
 
-gulp.task('test', ['build'], () =>
+gulp.task('test', ['build'], function() {
     gulp.src('test/*.spec.js')
         .pipe(jasmine())
-);
+});
 
 const del = require('del');
 
-gulp.task('clean', ()=>{
-    del(['src/*.js', 'test/*.js', 'src/*.map', 'test/*.map', '*.log']).then(paths => {
+gulp.task('clean', function(){
+    del(['src/*.js', 'test/*.js', 'src/*.map', 'test/*.map', '*.log']).then(function(paths) {
         console.log('Deleted files and folders:\n', paths.join('\n'));
     });
 });
