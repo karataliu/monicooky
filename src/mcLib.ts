@@ -52,17 +52,20 @@ export class McLib implements IMcLib {
     }
 
     executeQueries(queries: IMcQueryEntry[]): Promise<IMcResult> {
-        let base: Promise<IMcResult> = Promise.resolve({ list: [] });
+        let base: Promise<void> = Promise.resolve();
+        let result1: IMcResult = { list: [] };
+
         let cli = this.client;
         for (let entry of queries) {
-            base = base.then<IMcResult>(function (result) {
+            base = base.then(() => {
                 return McLib.executeQuery(cli, entry).then(function (resultEntry) {
-                    result.list.push(resultEntry);
-                    return result;
+                    result1.list.push(resultEntry);
                 });
+            }).catch(err => {
+                // console.error("Error found:" + err);
             });
         }
 
-        return base;
+        return base.then(() => result1);
     }
 }

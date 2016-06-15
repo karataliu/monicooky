@@ -10,9 +10,11 @@ class MockClient implements IMcClient {
                     { subscriptionId: "6d867431-f573-4e78-b658-10896020cff7", displayName: "d2" }
                 ]
             });
+        } else if (path.indexOf("/subscriptions/") === 0) {
+            return Promise.resolve({ value: [{}, {}] });
         }
 
-        return Promise.resolve({ value: [{}, {}] });
+        return Promise.reject(404);
     }
 }
 
@@ -58,6 +60,33 @@ describe("Lib test", function () {
 
     it("test executeQueries", function (done) {
         mcLib.executeQueries(urls).then(function (dat) {
+            expect(dat.list).toEqual([
+                { name: "azure.rgcount", value: 2, },
+                { name: "azure.rgcount1", value: 2, },
+            ]);
+        }).catch(function (err) {
+            fail(err);
+        }).then(done);
+    });
+
+    it("test executeQueries with 404 case.", function (done) {
+        // let newUrls = urls.();
+        const newUrls = [
+    {
+        name: "azure.rgcount",
+        path: "/subscriptions/test/resourceGroups?api-version=2014-04-01"
+    },
+    {
+            name: "azure.unknown",
+            path: "/r404"
+        },
+    {
+        name: "azure.rgcount1",
+        path: "/subscriptions/test/resourceGroups?api-version=2014-04-01"
+    },
+];
+
+        mcLib.executeQueries(newUrls).then(function (dat) {
             expect(dat.list).toEqual([
                 { name: "azure.rgcount", value: 2, },
                 { name: "azure.rgcount1", value: 2, },
