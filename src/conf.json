@@ -2,5 +2,5 @@
     "tenantId"  : "",
     "clientId"  : "",
     "secret"    : "",
-    "logFile"   : "b.log"
+    "logFile"   : ""
 }
