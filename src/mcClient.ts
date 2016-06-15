@@ -26,18 +26,31 @@ export class McClient extends msRest.ServiceClient implements IMcClient {
 
         let credentials = null;
         if (options.clientId && options.clientId !== "") {
-            let msRestAzure = require('ms-rest-azure');
+            const msRestAzure = require('ms-rest-azure');
+            const atcOption: any = {};
+
+            if (options.environment) {
+                const env = msRestAzure.AzureEnvironment[options.environment];
+                if (env) {
+                    atcOption.environment = env;
+                    options.endpoint = env.resourceManagerEndpointUrl;
+                } else {
+                    console.error(`${options.environment} not found, fallback to default.`);
+                }
+            }
+
             credentials = new msRestAzure.ApplicationTokenCredentials(
                 options.clientId,
                 options.tenantId,
-                options.secret);
+                options.secret,
+                atcOption);
         } else if (!options.endpoint) {
             options.endpoint = "http://doliluza1test.azurewebsites.net";
         }
 
         super(credentials);
         this.mcBaseUrl = options.endpoint || defaultOptions.endpoint;
-         if (options.logFile) {
+        if (options.logFile) {
             logger = new McLogger(options.logFile);
         }
     }
@@ -79,7 +92,7 @@ export class McClient extends msRest.ServiceClient implements IMcClient {
 }
 
 function doLog(message: string): void {
-        if (logger) {
-            logger.log(message);
-        }
+    if (logger) {
+        logger.log(message);
     }
+}

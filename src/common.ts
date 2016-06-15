@@ -6,6 +6,7 @@ export interface IMcLib {
 }
 
 export interface McClientOptions {
+    environment?: string;
     endpoint?:  string;
     tenantId?:  string;
     clientId?:  string;
