@@ -30,21 +30,11 @@ const urls = [
 ];
 
 describe("Lib test", function () {
-    let mcLib = new McLib(client);
-    it("test run", function (done) {
-        mcLib.executeQueries(urls).then(function (dat) {
-            expect(dat.list).toEqual([
-                { name: "azure.rgcount", value: 2, },
-                { name: "azure.rgcount1", value: 2, },
-            ]);
-        }).catch(function (err) {
-            fail(err);
-        }).then(done);
-    });
-});
+    let mcLib: McLib;
 
-describe("Lib tests", function () {
-    let mcLib = new McLib(client);
+    beforeEach(() => {
+        mcLib = new McLib(client);
+    });
 
     it("test listSubs", function (done) {
         mcLib.listSubscriptions().then(function (list) {
@@ -64,5 +54,16 @@ describe("Lib tests", function () {
             expect(result).toEqual({ name: "azure.rgcount", value: 2, });
             done();
         });
+    });
+
+    it("test executeQueries", function (done) {
+        mcLib.executeQueries(urls).then(function (dat) {
+            expect(dat.list).toEqual([
+                { name: "azure.rgcount", value: 2, },
+                { name: "azure.rgcount1", value: 2, },
+            ]);
+        }).catch(function (err) {
+            fail(err);
+        }).then(done);
     });
 });
